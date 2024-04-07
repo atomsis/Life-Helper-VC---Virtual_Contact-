@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <link href="{% static 'css/base.css' %}" rel="stylesheet">
+</head>
+<body>
+  <div id="header">
+    <span class="logo"><a href="{% url 'account:dashboard' %]">Bookmarks</a></span>
+    {% if request.user.is_authenticated %}
+    <span>
+      <a href="{% url 'account:profile'%}">My profile</a>
+    </span>
+    {% endif %}
+    <span class="user">
+      {% if request.user.is_authenticated %}
+        Hello {{ request.user.first_name|default:request.user.username }},
+        <a href="{% url 'account:logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'account:login' %}">Log-in</a>
+      {% endif %}
+    </span>
+  </div>
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="{{ message.tags }}">
+          {{ message|safe }}
+          <a href="#" class="close">x</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>

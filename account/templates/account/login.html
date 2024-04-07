@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+  <h1>Log-in</h1>
+  <p>Please, use the following form to log-in:</p>
+  <form method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <p><input type="submit" value="Log in"></p>
+  </form>
+  <h2> У вас ещё нет аккаунта? Давайте это исправим</h2>
+  <p> <a href="{% url 'account:register' %}">Зарегистрироваться</a></p>
+  <h2><a href="{% url 'account:password_reset'%}">Забыли пароль?</a></h2>
+{% endblock %}
