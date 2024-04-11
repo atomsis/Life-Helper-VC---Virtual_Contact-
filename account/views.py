@@ -48,10 +48,13 @@ def edit(request):
                                     files=request.FILES)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            profile_form.save()
-            messages.success(request, 'Profile updated '\
+            profile_form.save(commit=False)
+            if 'photo' in request.FILES:
+                profile_instance.photo = request.FILES['photo']
+                profile_instance.save()
+                messages.success(request, 'Profile updated '\
                                       'successfully')
-            return redirect('account:profile')
+                return redirect('account:profile')
         else:
             messages.error(request, 'Error updating your profile')
     else:

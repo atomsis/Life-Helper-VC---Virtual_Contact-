@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Profile{% endblock %}
-
+<script>
+    document.getElementById('id_photo').addEventListener('change',function() {
+    document.getElementById('photo_changed').value = '1';
+    });
+</script>
 {% block content %}
 <style>
     a:hover{
@@ -9,9 +13,13 @@
 </style>
 <h2>Profile {{request.user.username}}</h2>
 <form method="post" enctype="multipart/form-data">
-    {% if request.profile.photo %}
-        <img src="{{ request.prfile.photo.url }}" alt="Profile photo">
+    {% if request.user.profile.photo %}
+        <img class="avatar" src="{{ request.user.profile.photo.url }}" width="50px" alt="Profile Photo">
     {% endif %}
+    <br>
+    <label for="id_photo" class="change-photo-button">Изменить фото</label>
+    <input id="id_photo" type="file" name="photo">
+    <input type="hidden" id="photo_changed" name="photo_changes" value="0">
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}

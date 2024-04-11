@@ -61,6 +61,7 @@ class BaseCityForm(forms.ModelForm):
             ('Stavropol', 'Ставрополь'),
             ('Smolensk', 'Смоленск'),
             ('Kurgan', 'Курган'),
+            ('Surgut', 'Сургут'),
         ]
 
         return sorted(citys,key=lambda x:x[1])
@@ -78,7 +79,6 @@ class UserRegistrationForm(BaseCityForm):
     password2 = forms.CharField(label='Repeat password',
                                 widget=forms.PasswordInput)
     email = forms.EmailField(label='E-mail')
-    # city = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'form-input'}))
 
     class Meta:
         model = get_user_model()
@@ -140,7 +140,7 @@ class ProfileEditForm(BaseCityForm):
     )
     class Meta:
         model = Profile
-        fields = ['city', 'date_of_birth', 'photo']
+        fields = ['city', 'date_of_birth']
         labels = {
             'date_of_birth': 'Дата рождения',
             'city': 'Город'

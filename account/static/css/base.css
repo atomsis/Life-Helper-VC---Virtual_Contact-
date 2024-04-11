@@ -274,3 +274,27 @@ img.user-detail {
     font-style:italic;
     color:#ccc;
 }
+
+.avatar {
+    border-radius:50%;
+    width:150px;
+    height:150px;
+    object-fit: cover;
+}
+
+.change-photo-button {
+        margin-top: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+.change-photo-button:hover {
+        background-color: #0056b3;
+    }
+
+#id_photo {
+    display: none;
+}
