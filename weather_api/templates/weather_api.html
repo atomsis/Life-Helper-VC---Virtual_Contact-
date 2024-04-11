@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title%}Weather{%endblock%}
+{%block content%}
+    <h1>Погода в городе {{ city }}</h1>
+    <p>Температура: {{ temperature }} градусов Цельсия</p>
+    <p>Описание: {{ description }}</p>
+{%endblock%}

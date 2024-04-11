@@ -36,9 +36,9 @@ urlpatterns = [
          name='password_reset_complete'),
     # --------------------------------------------------------------------------------
 
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('', views.dashboard, name='dashboard'),
     path('test_redir/', views.test_redir, name='test_redir'),
-    path('profile/', views.ProfileUser.as_view(), name='profile'),
+    path('profile/', views.edit, name='profile'),
     path('my_ip/',views.my_ip,name='my_ip')
 
     # path('edit/', views.edit, name='edit'),

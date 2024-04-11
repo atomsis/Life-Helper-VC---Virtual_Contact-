@@ -2,16 +2,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{% block title %}{% endblock %}</title>
-  <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
 </head>
 <body>
-  <div id="header">
+<div id="header">
     <span class="logo"><a href="{% url 'account:dashboard' %]">Bookmarks</a></span>
     {% if request.user.is_authenticated %}
-    <span>
-      <a href="{% url 'account:profile'%}">My profile</a>
-    </span>
+    <ul class="menu">
+        <li {% if section == "profile" %}class="selected"{% endif %}>
+            <a href="{% url 'account:profile'%}">My profile</a>
+        </li>
+        <li {% if section == "dashboard" %}class="selected"{% endif %}>
+            <a href="{% url 'account:dashboard'%}">Dashboard</a>
+        </li>
+        <li {% if section == "weather" %}class="selected"{% endif %}>
+            <a href="{% url 'weather_api:weather' city_name=request.user.profile.city %}">Weather</a>
+        </li>
+    </ul>
     {% endif %}
     <span class="user">
       {% if request.user.is_authenticated %}
@@ -21,20 +29,20 @@
         <a href="{% url 'account:login' %}">Log-in</a>
       {% endif %}
     </span>
-  </div>
-  {% if messages %}
-    <ul class="messages">
-      {% for message in messages %}
-        <li class="{{ message.tags }}">
-          {{ message|safe }}
-          <a href="#" class="close">x</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-  <div id="content">
+</div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+        {{ message|safe }}
+        <a href="#" class="close">x</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div id="content">
     {% block content %}
     {% endblock %}
-  </div>
+</div>
 </body>
 </html>

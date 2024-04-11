@@ -28,6 +28,8 @@ class Profile(models.Model):
                 self.city = city
         super().save(*args, **kwargs)
 
+
+
     def get_city_from_ip(self, ip):
         try:
             # Здесь используется стороннее API для определения города по IP.
@@ -47,7 +49,7 @@ class Profile(models.Model):
             print("Error:", e)
             return "Unknown"
 
-@receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
+# @receiver(post_save, sender=User)
+# def create_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)

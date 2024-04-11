@@ -2,17 +2,21 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-      <style>
-      a:hover{
-          color: red;
-      }
-  </style>
-  <h2>Profile {{request.user.username}}</h2>
-  <form method="post">
-      {% csrf_token %}
-      {{form.as_p}}
-      <p><input type="submit" value="Save"></p>
-  </form>
+<style>
+    a:hover{
+        color: red;
+    }
+</style>
+<h2>Profile {{request.user.username}}</h2>
+<form method="post" enctype="multipart/form-data">
+    {% if request.profile.photo %}
+        <img src="{{ request.prfile.photo.url }}" alt="Profile photo">
+    {% endif %}
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <p><input type="submit" value="Save"></p>
+</form>
 <div>
     <a href="{% url 'account:password_change'%}">Сменить пароль</a>
 </div>

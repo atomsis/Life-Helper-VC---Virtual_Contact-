@@ -64,12 +64,12 @@ ol {
 }
 
 #header ul.menu li.selected a, #header ul.menu li.selected a:hover {
-    color:#1b6d32;
+    color:#4B0082;
     font-weight:bold;
 }
 
 #header a {
-    color:#f3f7cc;
+    color:red;
 }
 #header a:hover {
     color:#fff;
@@ -192,7 +192,6 @@ ul.messages li a.close {
 .social li.google { background:#de1710; }
 
 
-/* images */
 
 .image-preview, .image-detail {
     max-width:300px;
