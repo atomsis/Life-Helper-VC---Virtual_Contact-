@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Profile{% endblock %}
-<script>
-    document.getElementById('id_photo').addEventListener('change',function() {
-    document.getElementById('photo_changed').value = '1';
-    });
-</script>
+<!--<script>-->
+<!--    document.getElementById('id_photo').addEventListener('change',function() {-->
+<!--    document.getElementById('photo_changed').value = '1';-->
+<!--    });-->
+<!--</script>-->
 {% block content %}
 <style>
     a:hover{
@@ -15,6 +15,8 @@
 <form method="post" enctype="multipart/form-data">
     {% if request.user.profile.photo %}
         <img class="avatar" src="{{ request.user.profile.photo.url }}" width="50px" alt="Profile Photo">
+    {% else %}
+<!--сюда вставить "аноним фото" = пустую аватарку-->
     {% endif %}
     <br>
     <label for="id_photo" class="change-photo-button">Изменить фото</label>
@@ -25,6 +27,10 @@
     {{ profile_form.as_p }}
     <p><input type="submit" value="Save"></p>
 </form>
+{% if request.method == 'POST' and request.POST.photo_changes == '1' %}
+    <p class="photo-changed-message">Фото успешно обновлено</p>
+{% endif %}
+
 <div>
     <a href="{% url 'account:password_change'%}">Сменить пароль</a>
 </div>

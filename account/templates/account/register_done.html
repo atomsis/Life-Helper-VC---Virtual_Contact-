@@ -3,9 +3,13 @@
 {% block title %}Welcome{% endblock %}
 
 {% block content %}
+
   <h1>Welcome {{ new_user.username }}!</h1>
   <p>
     Your account has been successfully created.
     Now you can <a href="{% url 'account:login' %}">log in</a>.
   </p>
+ <form method="post">
+    {% csrf_token %}
+  </form>
 {% endblock %}

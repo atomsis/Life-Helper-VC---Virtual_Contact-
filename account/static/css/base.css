@@ -298,3 +298,8 @@ img.user-detail {
 #id_photo {
     display: none;
 }
+
+.photo-changed-message {
+        color: green;
+        font-weight: bold;
+    }

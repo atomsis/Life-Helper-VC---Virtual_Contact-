@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+{%block title%}Profile Exists{%endblock%}
+{% block content %}
+{% csrf_token %}
+ <h1>Профиль уже существует</h1>
+    <p>Профиль для этого пользователя уже создан. Вы можете попробовать войти в систему с вашими учетными данными или сбросить пароль, если забыли его.</p>
+    <a href="{% url 'account:login' %}">Войти</a></br>
+    <a href="{% url 'account:password_reset' %}">Сбросить пароль</a>
+{%endblock%}

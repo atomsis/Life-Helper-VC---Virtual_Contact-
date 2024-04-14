@@ -7,6 +7,7 @@
 </head>
 <body>
 <div id="header">
+    {% csrf_token %}
     <span class="logo"><a href="{% url 'account:dashboard' %]">Bookmarks</a></span>
     {% if request.user.is_authenticated %}
     <ul class="menu">
@@ -17,7 +18,11 @@
             <a href="{% url 'account:dashboard'%}">Dashboard</a>
         </li>
         <li {% if section == "weather" %}class="selected"{% endif %}>
-            <a href="{% url 'weather_api:weather' city_name=request.user.profile.city %}">Weather</a>
+            {% if request.user.profile.city %}
+                <a href="{% url 'weather_api:weather' city_name=request.user.profile.city %}">Weather</a>
+            {% else %}
+                <a href="{% url 'weather_api:weather' city_name='Moscow' %}">Weather</a>
+            {% endif %}
         </li>
     </ul>
     {% endif %}

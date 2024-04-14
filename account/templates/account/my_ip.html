@@ -2,5 +2,6 @@
 
 {%block title%}IP{%endblock%}
 {% block content %}
+{% csrf_token %}
 <h1> Мой ip = {{ ip }} </h1>
 {%endblock%}

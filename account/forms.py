@@ -1,7 +1,7 @@
 from datetime import datetime
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, UserCreationForm
 from django.contrib.auth import get_user_model
 from .models import Profile
 
@@ -67,51 +67,78 @@ class BaseCityForm(forms.ModelForm):
         return sorted(citys,key=lambda x:x[1])
 
 #----------------------------------- LOGIN AND REGISTTRATION -----------------------
+
+#----------------------------------- LOGIN v1 -----------------------
+
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(max_length=255, label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-input'}), label='Пароль,')
+    pass
+#     username = forms.CharField(max_length=255, label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
+#     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-input'}), label='Пароль,')
+#---------------------------------------------------------------------
+
+#----------------------------------- LOGIN v2 -----------------------
+class UserLoginForm(AuthenticationForm):
+    pass
+#     class Meta:
+#         model = User
+#         fields = ['username', 'password']
+
+#---------------------------------------------------------------------
 
 
-class UserRegistrationForm(BaseCityForm):
-    username = forms.CharField(max_length=255, label='Login')
-    password = forms.CharField(label='Password',
-                               widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Repeat password',
-                                widget=forms.PasswordInput)
-    email = forms.EmailField(label='E-mail')
+#----------------------------------- REGISTRATION v1 -----------------------
+# class UserRegistrationForm(BaseCityForm):
+#     username = forms.CharField(max_length=255, label='Login')
+#     password = forms.CharField(label='Password',
+#                                widget=forms.PasswordInput)
+#     password2 = forms.CharField(label='Repeat password',
+#                                 widget=forms.PasswordInput)
+#     email = forms.EmailField(label='E-mail')
+#
+#     class Meta:
+#         model = get_user_model()
+#         fields = ['username', 'email', 'city', 'password', 'password2']
+#         labels = {
+#             'email': 'E-mail',
+#
+#         }
+#
+#     def clean_password2(self):
+#         cd = self.cleaned_data
+#         if cd['password'] != cd['password2']:
+#             raise forms.ValidationError('Passwords don\'t match.')
+#         return cd['password2']
+#
+#     def clean_email(self):
+#         data = self.cleaned_data['email']
+#         if User.objects.filter(email=data).exists():
+#             raise forms.ValidationError('Email already in use.')
+#         return data
 
+    # def save(self, commit=True):
+    #     user = super().save(commit=False)
+    #     user.set_password(self.cleaned_data['password'])
+    #     if commit:
+    #         user.save()
+    #         profile = Profile.objects.create(
+    #             user=user,
+    #             city=self.cleaned_data['city'],
+    #             date_of_birth=self.cleaned_data['date_of_birth'],
+    #             email=self.cleaned_data['email']
+    #         )
+    #         profile.save()
+    #     return user
+#---------------------------------------------------------------------
+
+
+#----------------------------------- REGISTRATION v2 -----------------------
+class UserRegistrationForm(UserCreationForm,BaseCityForm):
     class Meta:
-        model = get_user_model()
-        fields = ['username', 'email', 'city', 'password', 'password2']
-        labels = {
-            'email': 'E-mail',
+        model = User
+        fields = ('username', 'email','city', 'password1', 'password2')
 
-        }
 
-    def clean_password2(self):
-        cd = self.cleaned_data
-        if cd['password'] != cd['password2']:
-            raise forms.ValidationError('Passwords don\'t match.')
-        return cd['password2']
-
-    def clean_email(self):
-        data = self.cleaned_data['email']
-        if User.objects.filter(email=data).exists():
-            raise forms.ValidationError('Email already in use.')
-        return data
-
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password'])
-        if commit:
-            user.save()
-            profile = Profile.objects.create(
-                user=user,
-                city=self.cleaned_data['city'],
-                date_of_birth=self.cleaned_data['date_of_birth']
-            )
-            profile.save()
-        return user
+#---------------------------------------------------------------------
 
 #------------------------------------ EDIT ------------------------------------------
 class UserEditForm(forms.ModelForm):

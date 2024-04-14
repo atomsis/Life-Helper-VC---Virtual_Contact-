@@ -1,8 +1,10 @@
 import json
+# from googletrans import Translator
 from django.shortcuts import render, get_object_or_404
 import requests
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponseServerError
 from .models import City
+
 from account.models import Profile
 
 
@@ -32,21 +34,28 @@ def translate_weather_description(description):
     }
     return translations.get(description, description)
 
+# def translate_city_name(city_name):
+#     translator = Translator()
+#     translation = translator.translate(city_name, src='en', dest='ru')
+#     return translation.text
 
-def weather(request, city_name):
+def weather(request,city_name):
     profile = get_object_or_404(Profile, user=request.user)
-    city = profile.city
-    # city = City.objects.get(name=city_name)
-    data = get_weather(city)
-    weather_data_struct = json.dumps(get_weather(city), indent=2)
-    # temperature = {'temp':data['main']['temp']}
-    temperature = data['main']['temp']
+    city_name = profile.city
+    # translated_city = translate_city_name(city)
+    try:
+        data = get_weather(city_name)
+        # weather_data_struct = json.dumps(get_weather(city), indent=2)
+        temperature = data['main']['temp']
 
-    responce_data = {
-        'temperature': round(temperature),
-        'city': city,
-        'description': data['weather'][0]['description'],
-        'section':'weather',
-    }
+        responce_data = {
+            'temperature': round(temperature),
+            'city': city_name,
+            'description': translate_weather_description(data['weather'][0]['description']),
+            'section':'weather',
+        }
+    except KeyError as e:
+        error_message = f'KeyError: {e}'
+        return  HttpResponseServerError(error_message)
     return render(request, 'weather_api.html', responce_data)
     # return f'На данный момент температура в Москве составляет {str(temperature)} градусов Цельсия'

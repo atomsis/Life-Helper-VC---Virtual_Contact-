@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Profile
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 
 @admin.register(Profile)
@@ -20,3 +22,20 @@ class ProfileAdmin(admin.ModelAdmin):
 
     email.short_description = 'Email'
     email.admin_order_field = 'user__email'
+
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = 'Профиль'
+
+class UserAdmin(BaseUserAdmin):
+    inlines = (ProfileInline, )
+    list_display = ('username', 'email', 'get_city')
+
+    def get_city(self, obj):
+        return obj.profile.city if hasattr(obj, 'profile') else None
+    get_city.short_description = 'Город'
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
