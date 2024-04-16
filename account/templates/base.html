@@ -23,6 +23,12 @@
             {% else %}
                 <a href="{% url 'weather_api:weather' city_name='Moscow' %}">Weather</a>
             {% endif %}
+        <li {% if section == "expense_list" %}class="selected"{% endif %}>
+            <a href="{% url 'money_tracker:expense_list' %}">My Expenses</a>
+        </li>
+        <li {% if section == "expense_chart" %}class="selected"{% endif %}>
+            <a href="{% url 'money_tracker:expense_chart' %}">Expense Chart</a>
+        </li>
         </li>
     </ul>
     {% endif %}

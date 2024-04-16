@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>My Expenses</h2>
+{% if expenses %}
+<ul>
+    {% for expense in expenses %}
+        <li>{{ expense.date }} - {{ expense.amount }}₽ - {{ expense.category }}</li>
+        {% if expense.description %}
+            <h5>📃{{expense.description}}</h5>
+        {% endif %}
+        <p><a href="{% url 'money_tracker:edit_expense">✍Редактировать</a></p>
+    {% endfor %}
+</ul>
+{% else %}
+<h4> Пока нет затрат </h4>
+{% endif %}
+<a href="{% url 'money_tracker:add_expense' %}">Add Expense</a>
+{% endblock %}

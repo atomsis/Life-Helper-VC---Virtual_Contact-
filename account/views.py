@@ -77,6 +77,7 @@ def edit(request):
                 profile_instance.save()
                 messages.success(request, 'Profile updated ' \
                                           'successfully')
+                # profile_form.save()
                 return redirect('account:profile')
         else:
             messages.error(request, 'Error updating your profile')

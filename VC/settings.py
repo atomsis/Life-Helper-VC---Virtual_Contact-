@@ -5,7 +5,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-p+j4&4wmo2yl1s#2y@%lykfay%lfq=7&3r+==ves%7vwsi&l&w'
 
 DEBUG = True
@@ -14,7 +13,6 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1','0.0.0.0','8000']
 
 
 
-# Application definition
 
 INSTALLED_APPS = [
     'account.apps.AccountConfig',
@@ -25,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'weather_api.apps.WeatherApiConfig',
+    'money_tracker.apps.MoneyTrackerConfig',
 ]
 
 MIDDLEWARE = [
@@ -58,8 +57,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'VC.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
@@ -69,8 +67,7 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Add Expense</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.errors }}
+          {{ field.label_tag }} {{ field }}
+        {% if field.name == 'category' %}
+          <p>Если здесь нет нужной категории - вы можете <a href="{% url 'money_tracker:add_category'%}">создать</a>  её</p>
+        {% endif %}
+      </p>
+    {% endfor %}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}
