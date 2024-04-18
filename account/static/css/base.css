@@ -1,10 +1,20 @@
 @import url(//fonts.googleapis.com/css?family=Muli);
 
+/*-----------------------------------------------------------------------*/
+/*body {
+    margin:0;
+    padding:0;
+    font-family:helvetica, sans-serif;
+}*/
+
 body {
     margin:0;
     padding:0;
     font-family:helvetica, sans-serif;
+    background: #000000; /* черный цвет фона */
+    color: #ffffff; /* белый цвет текста */
 }
+/*-----------------------------------------------------------------------*/
 
 p {
     line-height: 1.8;
@@ -35,23 +45,43 @@ ol {
     line-height:1.5;
 }
 
-#header {
+
+/*-----------------------------------------------------------------------*/
+/*#header {
     padding:10px 100px;
     font-size:14px;
     background:#12c064;
     color:#fff;
     border-bottom:4px solid #1cdf78;
     overflow:auto;
+}*/
+
+#header {
+    padding:10px 100px;
+    font-size:14px;
+    background:#000000; /* черный цвет фона */
+    color:#ff0000; /* красный цвет текста */
+    border-bottom:4px solid #ff0000; /* красная окантовка */
+    overflow:auto;
 }
 
-#header .logo {
+/*-----------------------------------------------------------------------*/
+/*#header .logo {
     font-family: 'Muli', sans-serif;
     float:left;
     color:#f3f7cc;
     font-size:20px;
     margin-right:10%;
-}
+}*/
 
+#header .logo {
+    font-family: 'Muli', sans-serif;
+    float:left;
+    color:#ff0000; /* красный цвет текста */
+    font-size:20px;
+    margin-right:10%;
+}
+/*-----------------------------------------------------------------------*/
 #header ul.menu {
     list-style:none;
     float:left;
@@ -67,14 +97,59 @@ ol {
     color:#4B0082;
     font-weight:bold;
 }
-
-#header a {
+/*-----------------------------------------------------------------------*/
+/*#header a {
     color:red;
 }
 #header a:hover {
     color:#fff;
+}*/
+
+
+#header a {
+    color:#ff0000; /* красный цвет текста */
+}
+#header a:hover {
+    color:#ffffff; /* белый цвет текста */
 }
 
+/*-----------------------------------------------------------------------*/
+
+
+
+/* ??????????????????????????????????????*/
+
+
+
+.menu li.selected a, #header ul.menu li.selected a:hover {
+    color:#4B0082; /* индиго */
+    font-weight:bold;
+}
+
+.menu li a {
+    color:#ff0000; /* красный цвет текста */
+}
+
+.menu li a:hover {
+    color:#ffffff; /* белый цвет текста */
+}
+
+.menu {
+    color:#ff0000; /* красный цвет текста */
+}
+
+.menu li.selected a, .menu li.selected a:hover {
+    color:#4B0082; /* индиго */
+    font-weight:bold;
+}
+
+
+
+
+
+
+
+/*-----------------------------------------------------------------------*/
 #header .user {
     float:right;
     padding-top:4px;
@@ -147,7 +222,9 @@ ul.messages li.info {
     color:#fff;
 }
 
-ul.messages li.success { background:#81ce81; }
+/*-----------------------------------------------------------------------*/
+
+/*ul.messages li.success { background:#81ce81; }
 ul.messages li.success a { color:#0ac33e; }
 
 ul.messages li.error { background:#a30029; color:#e9828e; }
@@ -157,7 +234,30 @@ ul.messages li.info { background:#faffae; color:#696b4e; }
 ul.messages li.info a { color:#1586de; }
 
 ul.messages li.warning { background:#de9404; }
-ul.messages li.warning a { color:#f49000; }
+ul.messages li.warning a { color:#f49000; }*/
+
+
+
+ul.messages li.success { background:#81ce81; }
+ul.messages li.success a { color:#0ac33e; }
+
+ul.messages li.error { background:#ff0000; color:#ffffff; } /* красный цвет фона и белый цвет текста */
+ul.messages li.error a { color:#ffffff; } /* белый цвет текста */
+
+ul.messages li.info { background:#000000; color:#696b4e; } /* черный фон и цвет текста серый */
+ul.messages li.info a { color:#ffffff; } /* белый цвет текста */
+
+ul.messages li.warning { background:#ff0000; } /* красный цвет фона */
+ul.messages li.warning a { color:#ffffff; } /* белый цвет текста */
+
+
+
+
+
+
+
+
+/*-----------------------------------------------------------------------*/
 
 ul.messages li a.close {
     margin:0;
@@ -303,3 +403,65 @@ img.user-detail {
         color: green;
         font-weight: bold;
     }
+
+
+.weather-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.current-weather, .forecast {
+    margin-bottom: 30px;
+}
+
+.day {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.temperature, .condition, .wind, .pressure, .uv-index {
+    font-size: 18px;
+}
+
+.time {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.max-temp, .min-temp, .morning-temp, .day-temp, .evening-temp, .chance-of-rain, .condition {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.astro-data {
+    margin-top: 10px;
+
+    border : solid blue 3px;
+    border-radius : 20px;
+}
+
+.astro-data ul {
+    margin-left: 10px;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.astro-data ul li {
+    font-size: 14px;
+    margin-bottom:
+
+
+/*-----------------------------------------------------------------------*/
+
+.login-form, .avatar, .weather-container {
+    background: #000000; /* черный цвет фона */
+    color: #ffffff; /* белый цвет текста */
+}
+
+.image-preview, .image-detail {
+    background: #000000; /* черный цвет фона */
+    color: #ffffff; /* белый цвет текста */
+}
+/*-----------------------------------------------------------------------*/

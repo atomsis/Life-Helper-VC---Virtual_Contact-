@@ -1,7 +1,47 @@
 {% extends 'base.html' %}
-{% block title%}Weather{%endblock%}
-{%block content%}
-        <h1>Погода в городе {{ city }}</h1>
-        <p>Температура: {{ temperature }} градусов Цельсия</p>
-        <p>Состояние погоды: {{ description }}</p>
-{%endblock%}
+
+{% block title %}
+    Weather
+{% endblock %}
+
+{% block content %}
+    <div class="weather-container">
+        <h1>Погода в городе {{ location_name }}</h1>
+        <p class="time">Текущее время: {{ localtime }}</p>
+        <div class="current-weather">
+            <h2>Текущая погода</h2>
+            <p class="temperature">Текущая температура: {{ current_temp }} градусов Цельсия</p>
+            <p class="condition">Состояние погоды: {{ current_condition }}</p>
+            <p class="wind">Скорость ветра: {{ current_wind_speed }} м/с, направление: {{ current_wind_dir }}</p>
+            <p class="pressure">Атмосферное давление: {{ current_pressure }} мбар</p>
+            <p class="uv-index">Ультрафиолетовый индекс: {{ current_uv }}<br><b style="color:red">(не верьте ему-он работает правильно,но фиг пойми откуда берёт этот УФ)</b></p>
+        </div>
+
+        <div class="forecast">
+            <h2>Прогноз на следующие дни</h2>
+            {% for day in forecast_days %}
+                <div class="day">
+                    <h3>{{ day.date|date:"Y-m-d" }} ({{ day.day_name }})</h3>
+                    <p class="max-temp">Максимальная температура: {{ day.max_temp }}°C</p>
+                    <p class="min-temp">Минимальная температура: {{ day.min_temp }}°C</p>
+                    <p class="morning-temp">Утренняя температура: {{ day.morning_temp }}°C</p>
+                    <p class="day-temp">Дневная температура: {{ day.day_temp }}°C</p>
+                    <p class="evening-temp">Вечерняя температура: {{ day.evening_temp }}°C</p>
+                    <p class="chance-of-rain">Шанс дождя: {{ day.chance_of_rain }}%</p>
+                    <p class="condition">Состояние погоды: {{ day.day_condition }}</p>
+                    <div class="astro-data">
+                        <h4>Астрономические данные:</h4>
+                        <ul>
+                            <li>Восход Солнца: {{ day.astro.sunrise }}</li>
+                            <li>Заход Солнца: {{ day.astro.sunset }}</li>
+                            <li>Восход Луны: {{ day.astro.moonrise }}</li>
+                            <li>Заход Луны: {{ day.astro.moonset }}</li>
+                            <li>Фаза Луны: {{ day.astro.moon_phase }}</li>
+                            <li>Освещенность Луны: {{ day.astro.moon_illumination }}%</li>
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -8,10 +8,10 @@
     var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: {{ labels|safe }},
+            labels: {{ labels|safe|escapejs }},
             datasets: [{
                 label: 'Expenses',
-                data: {{ amounts|safe }},
+                data: {{ amounts|safe|escapejs }},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

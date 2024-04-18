@@ -9,7 +9,7 @@
         {% if expense.description %}
             <h5>📃{{expense.description}}</h5>
         {% endif %}
-        <p><a href="{% url 'money_tracker:edit_expense">✍Редактировать</a></p>
+        <p><a href="{{expense.get_absolute_url }}">✍Редактировать</a></p>
     {% endfor %}
 </ul>
 {% else %}

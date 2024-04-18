@@ -1,35 +1,38 @@
 import json
 from django.shortcuts import render, get_object_or_404
 import requests
-from django.http import JsonResponse,HttpResponseServerError
-from .models import City,Weather
+from django.http import JsonResponse, HttpResponseServerError
+from .models import City, Weather
 from account.models import Profile
 from datetime import datetime, timedelta
+
 
 def kph_to_mps(kph):
     return kph * 1000 / 3600
 
-def weather(request,city):
+
+def weather(request, city_name='Moscow'):
     profile = Profile.objects.get(user=request.user)
     if profile.city:
         city = profile.city
     else:
         city = 'Moscow'
+    translated_city = translate_city_name(city)
     url = "https://weatherapi-com.p.rapidapi.com/forecast.json"
-    querystring = {"q": city, "days": "7"}
+    querystring = {"q": translated_city, "days": "7"}
 
     headers = {
         "X-RapidAPI-Key": "9566aeebb1msh9e2d272ab0de5aep1a68c8jsn317fadb5dd11",
         "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
     }
 
-    response = requests.get(url,headers=headers, params=querystring)
+    response = requests.get(url, headers=headers, params=querystring)
     data = response.json()
     location_name = data['location']['name']
-    localtime = data['location']['localtime']
+    localtime = datetime.now()
     current_temp = data['current']['temp_c']
-    current_condition = data['current']['condition']['text']
-    current_wind_speed = kph_to_mps(data['current']['wind_kph'])
+    current_condition = translate_weather_description((data['current']['condition']['text']).lower())
+    current_wind_speed = round(kph_to_mps(data['current']['wind_kph']),2)
     current_wind_dir = data['current']['wind_dir']
     current_pressure = data['current']['pressure_mb']
     current_uv = data['current']['uv']
@@ -37,14 +40,14 @@ def weather(request,city):
     forecast_days = []
     for day_data in data['forecast']['forecastday']:
         date = datetime.strptime(day_data['date'], '%Y-%m-%d')
-        day_name = date.strftime('%A')
+        day_name = translate_day(date.strftime('%A'))
         max_temp = day_data['day']['maxtemp_c']
         min_temp = day_data['day']['mintemp_c']
         morning_temp = day_data['hour'][6]['temp_c']
         day_temp = day_data['hour'][12]['temp_c']
         evening_temp = day_data['hour'][18]['temp_c']
         chance_of_rain = day_data['day']['daily_chance_of_rain']
-        day_condition = day_data['day']['condition']['text']
+        day_condition = translate_weather_description((day_data['day']['condition']['text']).lower())
         astro_data = day_data['astro']
 
         forecast_days.append({
@@ -90,13 +93,76 @@ def translate_weather_description(description):
         'thunderstorm': 'гроза',
         'snow': 'снег',
         'mist': 'туман',
-    }
-    return translations.get(description, description)
+        'patchy rain nearby': 'местами дождь',
+        'partly Cloudy': 'небольшая облачность',
 
-# def translate_city_name(city_name):
-#     translator = Translator()
-#     translation = translator.translate(city_name, src='en', dest='ru')
-#     return translation.text
+    }
+    return (translations.get(description, description)).capitalize()
+
+
+def translate_day(day):
+    days = {
+        'Monday': 'Понедельник',
+        'Tuesday': 'Вторник',
+        'Wednesday': 'Среда',
+        'Thursday': 'Четверг',
+        'Friday': 'Пятница',
+        'Saturday': 'Суббота',
+        'Sunday': 'Воскресенье',
+    }
+    return days.get(day, day)
+
+def translate_city_name(city_name):
+    CITY_TRANSLATIONS = {
+        'Moscow': 'Москва',
+        'Saint Petersburg': 'Санкт-Петербург',
+        'Novosibirsk': 'Новосибирск',
+        'Yekaterinburg': 'Екатеринбург',
+        'Nizhny Novgorod': 'Нижний Новгород',
+        'Kazan': 'Казань',
+        'Chelyabinsk': 'Челябинск',
+        'Omsk': 'Омск',
+        'Samara': 'Самара',
+        'Rostov-on-Don': 'Ростов-на-Дону',
+        'Ufa': 'Уфа',
+        'Krasnoyarsk': 'Красноярск',
+        'Perm': 'Пермь',
+        'Voronezh': 'Воронеж',
+        'Volgograd': 'Волгоград',
+        'Saratov': 'Саратов',
+        'Krasnodar': 'Краснодар',
+        'Tolyatti': 'Тольятти',
+        'Izhevsk': 'Ижевск',
+        'Ulyanovsk': 'Ульяновск',
+        'Barnaul': 'Барнаул',
+        'Vladivostok': 'Владивосток',
+        'Yaroslavl': 'Ярославль',
+        'Irkutsk': 'Иркутск',
+        'Tyumen': 'Тюмень',
+        'Khabarovsk': 'Хабаровск',
+        'Makhachkala': 'Махачкала',
+        'Orenburg': 'Оренбург',
+        'Novokuznetsk': 'Новокузнецк',
+        'Tomsk': 'Томск',
+        'Kemerovo': 'Кемерово',
+        'Astrakhan': 'Астрахань',
+        'Kirov': 'Киров',
+        'Penza': 'Пенза',
+        'Lipetsk': 'Липецк',
+        'Cheboksary': 'Чебоксары',
+        'Tula': 'Тула',
+        'Kaliningrad': 'Калининград',
+        'Balashikha': 'Балашиха',
+        'Kursk': 'Курск',
+        'Sevastopol': 'Севастополь',
+        'Sochi': 'Сочи',
+        'Arkhangelsk': 'Архангельск',
+        'Stavropol': 'Ставрополь',
+        'Smolensk': 'Смоленск',
+        'Kurgan': 'Курган',
+        'Surgut': 'Сургут',
+    }
+    return CITY_TRANSLATIONS.get(city_name,city_name)
 
 # def weather(request,city_name='Moscow'):
 #     # profile = get_object_or_404(Profile, user=request.user)
