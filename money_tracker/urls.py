@@ -9,4 +9,7 @@ urlpatterns = [
     path('expenses/edit/<int:pk>/', views.edit_expense, name='edit_expense'),
     path('expenses/add_category/', views.add_category, name='add_category'),
     path('expenses/chart/', views.expense_chart, name='expense_chart'),
+    path('calculate_total_expenses_without_category/<str:category_name>/',
+         views.calculate_total_expenses_without_category, name='calculate_total_expenses_without_category'),
+
 ]

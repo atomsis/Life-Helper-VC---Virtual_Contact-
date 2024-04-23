@@ -1,18 +1,21 @@
 @import url(//fonts.googleapis.com/css?family=Muli);
 
 /*-----------------------------------------------------------------------*/
-/*body {
+
+/*
+body {
     margin:0;
     padding:0;
     font-family:helvetica, sans-serif;
-}*/
+}
+*/
 
 body {
     margin:0;
     padding:0;
     font-family:helvetica, sans-serif;
-    background: #000000; /* черный цвет фона */
-    color: #ffffff; /* белый цвет текста */
+    background: white; /* черный цвет фона */
+    color: black; /* белый цвет текста */
 }
 /*-----------------------------------------------------------------------*/
 
@@ -381,7 +384,12 @@ img.user-detail {
     height:150px;
     object-fit: cover;
 }
-
+.avatar-header {
+    border-radius: 50%;
+    width: 2.5em; /* Размер для аватарки вверху справа */
+    height: 2.5em;
+    object-fit: cover;
+}
 .change-photo-button {
         margin-top: 10px;
         background-color: #007bff;

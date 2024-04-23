@@ -80,21 +80,24 @@ def weather(request, city_name='Moscow'):
 
 def translate_weather_description(description):
     translations = {
+        'sunny': 'солнечно',
         'clear sky': 'ясное небо',
         'few clouds': 'небольшая облачность',
+        'partly cloudy': 'небольшая облачность',
         'scattered clouds': 'рассеянные облака',
         'broken clouds': 'облачно с прояснениями',
         'overcast clouds': 'пасмурно',
         'shower rain': 'небольшой дождь',
+        'patchy rain nearby': 'местами дождь',
         'rain': 'дождь',
         'light rain': 'легкий дождь',
         'moderate rain': 'умеренный дождь',
         'heavy intensity rain': 'сильный дождь',
         'thunderstorm': 'гроза',
+        'moderate or heavy rain with thunder': 'умеренный или сильный дождь с грозой',
+        'patchy light rain with thunder': 'Кратковременный мелкий дождь с грозой',
         'snow': 'снег',
         'mist': 'туман',
-        'patchy rain nearby': 'местами дождь',
-        'partly Cloudy': 'небольшая облачность',
 
     }
     return (translations.get(description, description)).capitalize()

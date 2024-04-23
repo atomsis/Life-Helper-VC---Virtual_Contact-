@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Profile{% endblock %}
 <!--<script>-->
 <!--    document.getElementById('id_photo').addEventListener('change',function() {-->
@@ -13,10 +14,12 @@
 </style>
 <h2>Profile {{request.user.username}}</h2>
 <form method="post" enctype="multipart/form-data">
+
     {% if request.user.profile.photo %}
         <img class="avatar" src="{{ request.user.profile.photo.url }}" width="50px" alt="Profile Photo">
     {% else %}
-<!--сюда вставить "аноним фото" = пустую аватарку-->
+        <!-- In case of no profile photo, use a default image -->
+        <img class="avatar" src="{% static 'img/default_profile.jpg' %}" width="50px" alt="Default Profile Photo">
     {% endif %}
     <br>
     <label for="id_photo" class="change-photo-button">Изменить фото</label>

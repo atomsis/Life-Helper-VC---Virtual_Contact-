@@ -39,9 +39,19 @@
       {% if request.user.is_authenticated %}
         Hello {{ request.user.first_name|default:request.user.username }},
         <a href="{% url 'account:logout' %}">Logout</a>
+        <img src="
+        {% if request.user.profile.photo %}
+            {{ request.user.profile.photo.url }}
+        {% else %}
+            {% static 'img/default_profile.jpg' %}
+        {% endif %}"
+             class="avatar-header" alt="Profile Photo"
+        >
+
       {% else %}
         <a href="{% url 'account:login' %}">Log-in</a>
       {% endif %}
+
     </span>
 </div>
 {% if messages %}
@@ -58,5 +68,7 @@
     {% block content %}
     {% endblock %}
 </div>
+{% block scripts %}
+{% endblock %}
 </body>
 </html>
