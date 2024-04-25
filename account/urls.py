@@ -46,6 +46,7 @@ urlpatterns = [
     path('test_redir/', views.test_redir, name='test_redir'),
     path('profile/', views.edit, name='profile'),
     path('my_ip/',views.my_ip,name='my_ip')
+    path('all_users/', views.all_users, name='all_users'),
 
     # path('edit/', views.edit, name='edit'),
 ]

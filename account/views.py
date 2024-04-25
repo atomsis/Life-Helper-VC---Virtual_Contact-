@@ -9,6 +9,7 @@ from django.contrib import messages
 from .forms import UserRegistrationForm, \
     ProfileEditForm, UserPasswordChangeForm, UserEditForm, \
     UserLoginForm, LoginForm
+from django.contrib.auth.models import User
 from .models import Profile
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -138,7 +139,6 @@ def logout_view(request):
     return HttpResponseRedirect(reverse('account:login'))
 
 
-@login_required
 def test_redir(request):
     return render(request, 'account/test_redir.html')
 
@@ -166,3 +166,11 @@ def my_ip(request):
     # ip, _ = get_client_ip(request)
     external_ip = requests.get('https://api.ipify.org').text
     return render(request, 'account/my_ip.html', {'ip': external_ip})
+
+@login_required
+def all_users(request):
+    users = User.objects.exclude(pk=request.user.pk)
+
+    for user in users:
+        user.is_friend = user.profile in  request.user.profile.get_friends()
+    return render(request, 'friends/all_users.html', {'users': users})
