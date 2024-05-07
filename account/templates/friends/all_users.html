@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>All Users</h1>
+    <ul>
+        {% for user in users %}
+            <li>
+                {{ user.username }}
+                {% if not user.is_friend %}
+                    <form action="{% url 'add_friend' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="friend_id" value="{{ user.profile.id }}">
+                        <button type="submit">Add Friend</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

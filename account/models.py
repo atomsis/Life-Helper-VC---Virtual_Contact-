@@ -8,6 +8,13 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+class Friendship(models.Model):
+    from_user = models.ForeignKey(User, related_name='friendship_from', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name='friendship_to', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.from_user.username} -> {self.to_user.username}'
 
 class Profile(models.Model):
     user = models.OneToOneField(User,
@@ -17,6 +24,24 @@ class Profile(models.Model):
                               blank=True)
     city = models.CharField(max_length=255, blank=True)
     email = models.EmailField(blank=True)
+
+    def add_friend(self, friend):
+        friendship, created = Friendship.objects.get_or_create(
+            from_user=self.user,
+            to_user=friend.user
+        )
+        return friendship
+
+
+    def get_friends(self):
+        return User.objects.filter(
+            id__in=self.user.friendship_from.values_list('to_user',flat=True)
+            )
+    def remove_friend(self, friend):
+        Friendship.objects.filter(
+            from_user=self.user,
+            to_user=friend.user
+        ).delete()
 
     def __str__(self):
         return f'Profile of {self.user.username}'
@@ -29,22 +54,4 @@ class Profile(models.Model):
     #             self.city = city
     #     super().save(*args, **kwargs)
 
-
-    #
-    # def get_city_from_ip(self, ip):
-    #     try:
-    #         api_key = '169c08615dd840b9b2e49662b11071c0'
-    #         api_endpoint = f'https://api.ipgeolocation.io/ipgeo?apiKey={api_key}&ip={ip}'
-    #
-    #         response = requests.get(api_endpoint)
-    #         if response.status_code == 200:
-    #             data = response.json()
-    #             city = data.get('city', 'Unknown')
-    #             return city
-    #         else:
-    #             print("Failed to fetch data from API")
-    #             return "Unknown"
-    #     except Exception as e:
-    #         print("Error:", e)
-    #         return "Unknown"
 
