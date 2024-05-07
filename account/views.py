@@ -1,22 +1,20 @@
 from django.urls import reverse, reverse_lazy
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import  HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import AuthenticationForm
 from django.db import IntegrityError
 from django.contrib import messages
 from .forms import UserRegistrationForm, \
-    ProfileEditForm, UserPasswordChangeForm, UserEditForm, \
-    UserLoginForm, LoginForm
+    ProfileEditForm, UserPasswordChangeForm, UserEditForm
 from django.contrib.auth.models import User
 from .models import Profile
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model
-from ipware import get_client_ip
 import requests
+from django.contrib.auth.backends import ModelBackend
 
 
 #
@@ -37,8 +35,9 @@ def register(request):
             user.set_password(form.cleaned_data['password1'])
             try:
                 user.save()
-                Profile.objects.create(user=user)
-                login(request, user)
+                if not Profile.objects.filter(user=user).exists():
+                    Profile.objects.create(user=user)
+                # login(request, user,backend='django.contrib.auth.backends.ModelBackend')
                 return render(request, 'account/register_done.html', {'new_user': user})
             except IntegrityError:
                 Profile.objects.create(user=user)
