@@ -4,10 +4,10 @@
 <head>
     <title>{% block title %}{% endblock %}</title>
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div id="header">
-    {% csrf_token %}
     <span class="logo"><a href="{% url 'account:dashboard' %}">Life Helper</a></span>
     <span class="logo"><a href="{% url 'account:test_redir' %}">test_redir</a></span>
     {% if request.user.is_authenticated %}
@@ -36,23 +36,23 @@
     </ul>
     {% endif %}
     <span class="user">
-      {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated %}
         Hello {{ request.user.first_name|default:request.user.username }},
         <a href="{% url 'account:logout' %}">Logout</a>
-        <img src="
-        {% if request.user.profile.photo %}
-            {{ request.user.profile.photo.url }}
-        {% else %}
-            {% static 'img/default_profile.jpg' %}
-        {% endif %}"
-             class="avatar-header" alt="Profile Photo"
-        >
-
-      {% else %}
+        <div class="avatar-wrapper">
+            <img src="{% if request.user.profile.photo %}{{ request.user.profile.photo.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}"
+                 class="avatar-header" alt="Profile Photo" id="profile-avatar-menu-btn">
+            <ul id="profile-menu" style="display: none;">
+                <li><a href="{% url 'account:all_users' %}">Friends</a></li>
+                <!-- Другие пункты меню -->
+            </ul>
+        </div>
+    {% else %}
         <a href="{% url 'account:login' %}">Log-in</a>
-      {% endif %}
+    {% endif %}
+</span>
 
-    </span>
+
 </div>
 {% if messages %}
 <ul class="messages">
@@ -69,6 +69,7 @@
     {% endblock %}
 </div>
 {% block scripts %}
+    <script src="{% static 'js/profile_menu.js' %}"></script>
 {% endblock %}
 </body>
 </html>
