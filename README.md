@@ -30,16 +30,16 @@
 ```bash
 git clone https://github.com/atomsis/VC.git
 ```
-Если планируете запускать не через контейнер
 --------------------------------------------
-2.without_docker.
+Если планируете запускать не через контейнер
+2. Without_docker.
 ```bash
 pip install -r requirements.txt
 ```
 --------------------------------------------
 
-2.with_docker. Установите Docker и Docker Compose, если они еще не установлены.
-
+2. With_docker. Установите Docker и Docker Compose, если они еще не установлены.
+--------------------------------------------
 3. Соберите и запустите контейнеры Docker:
 ```bash
 docker compose up --build
