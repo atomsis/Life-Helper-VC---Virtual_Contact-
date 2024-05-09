@@ -39,7 +39,7 @@ pip install -r requirements.txt
 ```
 --------------------------------------------
 2. **With_docker. Установите Docker и Docker Compose, если они еще не установлены.**
---------------------------------------------
+
 3. **Соберите и запустите контейнеры Docker:**
 ```bash
 docker compose up --build
