@@ -62,9 +62,9 @@ ol {
 #header {
     padding:10px 100px;
     font-size:14px;
-    background:#000000; /* черный цвет фона */
-    color:#ff0000; /* красный цвет текста */
-    border-bottom:4px solid #ff0000; /* красная окантовка */
+    background:#000000;
+    color:#ff0000;
+    border-bottom:4px solid #ff0000;
     overflow:auto;
 }
 
