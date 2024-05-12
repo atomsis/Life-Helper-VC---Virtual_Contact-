@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .user-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Создает гибкую сетку */
+    grid-gap: 20px; /* Расстояние между элементами */
+    justify-content: center; /* Центрирование элементов по горизонтали */
+        }
+
+    .user {
+        text-align: center; /* Центрирование содержимого */
+    }
+
+    .username {
+        margin-top: 10px; /* Отступ над именем пользователя */
+    }
+</style>
+    <h1>Friend List</h1>
+    <div class="user-grid">
+        {% for friend in friends %}
+            <div class="user">
+                {% include 'photo_or_anon.html' with user=friend %}
+                <p class="username">
+                    {% if friend.user.username %}
+                        {{ friend.user.username }}
+                {% else %}
+                        {{ friend }}
+                {% endif %}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% load static %}
+{% if user.profile.photo %}
+      <img class="avatar_friend" src="{{ user.profile.photo.url }}" alt="Avatar" style="margin-bottom: 10px;">
+  {% else %}
+      <img class="avatar_friend" src="{% static 'img/default_profile.jpg' %}" alt="Default Profile Photo" style="margin-bottom: 10px;">
+  {% endif %}
