@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // Показываем меню при клике на фото
     $('#profile-avatar-menu-btn').click(function() {
-        alert("Avatar clicked");
+//        alert("Avatar clicked");
 
         $('#profile-menu').toggle();
     });

@@ -14,13 +14,7 @@
 </style>
 <h2>Profile {{request.user.username}}</h2>
 <form method="post" enctype="multipart/form-data">
-
-    {% if request.user.profile.photo %}
-        <img class="avatar" src="{{ request.user.profile.photo.url }}" width="50px" alt="Profile Photo">
-    {% else %}
-        <!-- In case of no profile photo, use a default image -->
-        <img class="avatar" src="{% static 'img/default_profile.jpg' %}" width="50px" alt="Default Profile Photo">
-    {% endif %}
+    {% include 'photo_or_anon.html' with user=request.user %}
     <br>
     <label for="id_photo" class="change-photo-button">Изменить фото</label>
     <input id="id_photo" type="file" name="photo">

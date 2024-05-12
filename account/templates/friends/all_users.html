@@ -1,18 +1,37 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
     <h1>All Users</h1>
-    <ul>
-        {% for user in users %}
-            <li>
-                {{ user.username }}
-                {% if not user.is_friend %}
-                    <form action="{% url 'add_friend' %}" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="friend_id" value="{{ user.profile.id }}">
-                        <button type="submit">Add Friend</button>
-                    </form>
+    <table>
+        <tr>
+            {% for user in users %}
+                <td style="padding: 20px;">
+                    <div style="text-align: center;">
+                        {% if user.profile.photo %}
+                            <img class="avatar_friend" src="{{ user.profile.photo.url }}" alt="Avatar" style="margin-bottom: 10px;">
+                        {% else %}
+                            <img class="avatar_friend" src="{% static 'img/default_profile.jpg' %}" alt="Default Profile Photo" style="margin-bottom: 10px;">
+                        {% endif %}
+                        <p style="margin-bottom: 5px;">{{ user.username }}</p>
+                        {% if not friend_status|default_if_none:user.id  %}
+                            <form action="{% url 'account:add_friend' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="friend_id" value="{{ user.profile.id }}">
+                                <button type="submit" class="btn_add_friend">Add Friend</button>
+                            </form>
+                        {% else %}
+                            <form action="{% url 'account:remove_friend' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="friend_id" value="{{ user.profile.id }}">
+                                <button type="submit" class="btn_add_friend">Remove from friendlist</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </td>
+                {% if forloop.counter|divisibleby:10 and not forloop.last %}
+                    </tr><tr>
                 {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </tr>
+    </table>
 {% endblock %}

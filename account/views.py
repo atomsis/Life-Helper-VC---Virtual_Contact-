@@ -1,5 +1,5 @@
 from django.urls import reverse, reverse_lazy
-from django.http import  HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 from django.contrib.auth.views import PasswordChangeView
@@ -14,7 +14,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import requests
-from django.contrib.auth.backends import ModelBackend
 
 
 #
@@ -37,7 +36,6 @@ def register(request):
                 user.save()
                 if not Profile.objects.filter(user=user).exists():
                     Profile.objects.create(user=user)
-                # login(request, user,backend='django.contrib.auth.backends.ModelBackend')
                 return render(request, 'account/register_done.html', {'new_user': user})
             except IntegrityError:
                 Profile.objects.create(user=user)
@@ -46,18 +44,6 @@ def register(request):
         form = UserRegistrationForm()
     return render(request, 'account/register.html', {'form': form})
 
-    # if request.method == 'POST':
-    #     form = UserRegistrationForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         username = form.cleaned_data['username']
-    #         password = form.cleaned_data['password1']
-    #         user = authenticate(username=username, password=password)
-    #         login(request, user)
-    #         return redirect('account:profile')
-    # else:
-    #     form = UserRegistrationForm()
-    # return render(request, 'account/register.html', {'form': form})
 
 
 @login_required
@@ -166,10 +152,53 @@ def my_ip(request):
     external_ip = requests.get('https://api.ipify.org').text
     return render(request, 'account/my_ip.html', {'ip': external_ip})
 
+
 @login_required
 def all_users(request):
     users = User.objects.exclude(pk=request.user.pk)
+    friend_status = {}
 
     for user in users:
-        user.is_friend = user.profile in  request.user.profile.get_friends()
-    return render(request, 'friends/all_users.html', {'users': users})
+        is_friend = user.profile in request.user.profile.get_friends()
+        friend_status[user.id] = is_friend
+
+    return render(request, 'friends/all_users.html', {'users': users,'friend_status': friend_status})
+
+@login_required
+def my_friends(request):
+    user = request.user
+    friends = user.profile.get_friends()
+    return render(request, 'friends/friend_list.html', {'friends': friends})
+
+@login_required
+def add_friend(request):
+    if request.method == 'POST':
+        friend_id = request.POST.get('friend_id')
+        # print(friend_id)
+        try:
+            friend_profile = Profile.objects.get(pk=friend_id)
+            request.user.profile.add_friend(friend_profile)
+            messages.success(request, 'You have new friends')
+            return HttpResponse(status=200)
+        except Profile.DoesNotExist:
+            messages.error(request, 'Invalid friend ID')
+            return HttpResponseBadRequest('Invalid friend ID')
+    else:
+        messages.error(request, 'Invalid request method')
+        return HttpResponseBadRequest('Invalid request method')
+
+@login_required
+def remove_friend(request):
+    if request.method == 'POST':
+        friend_id = request.POST.get('friend_id')
+        try:
+            friend_profile = Profile.objects.get(pk=friend_id)
+            request.user.profile.remove_friend(friend_profile)
+            messages.success(request, 'You have delete this friends from your friendlist')
+            return HttpResponse(status=200)
+        except Profile.DoesNotExist:
+            messages.error(request, 'Invalid friend ID')
+            return HttpResponseBadRequest('Invalid friend ID')
+    else:
+        messages.error(request, 'Invalid request method')
+        return HttpResponseBadRequest('Invalid request method')

@@ -43,7 +43,8 @@
             <img src="{% if request.user.profile.photo %}{{ request.user.profile.photo.url }}{% else %}{% static 'img/default_profile.jpg' %}{% endif %}"
                  class="avatar-header" alt="Profile Photo" id="profile-avatar-menu-btn">
             <ul id="profile-menu" style="display: none;">
-                <li><a href="{% url 'account:all_users' %}">Friends</a></li>
+                <li><a href="{% url 'account:all_users' %}">All People</a></li>
+                <li><a href="{% url 'account:my_friends' %}">My friends</a></li>
                 <!-- Другие пункты меню -->
             </ul>
         </div>

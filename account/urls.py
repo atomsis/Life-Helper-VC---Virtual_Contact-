@@ -47,6 +47,8 @@ urlpatterns = [
     path('profile/', views.edit, name='profile'),
     path('my_ip/',views.my_ip,name='my_ip'),
     path('all_users/', views.all_users, name='all_users'),
+    path('add_friend/', views.add_friend, name='add_friend'),
+    path('remove_friend/', views.remove_friend, name='remove_friend'),
+    path('my_friends/', views.my_friends, name='my_friends'),
 
-    # path('edit/', views.edit, name='edit'),
 ]

@@ -1,15 +1,6 @@
 @import url(//fonts.googleapis.com/css?family=Muli);
 
 /*-----------------------------------------------------------------------*/
-
-/*
-body {
-    margin:0;
-    padding:0;
-    font-family:helvetica, sans-serif;
-}
-*/
-
 body {
     margin:0;
     padding:0;
@@ -50,14 +41,6 @@ ol {
 
 
 /*-----------------------------------------------------------------------*/
-/*#header {
-    padding:10px 100px;
-    font-size:14px;
-    background:#12c064;
-    color:#fff;
-    border-bottom:4px solid #1cdf78;
-    overflow:auto;
-}*/
 
 #header {
     padding:10px 100px;
@@ -69,18 +52,12 @@ ol {
 }
 
 /*-----------------------------------------------------------------------*/
-/*#header .logo {
-    font-family: 'Muli', sans-serif;
-    float:left;
-    color:#f3f7cc;
-    font-size:20px;
-    margin-right:10%;
-}*/
+
 
 #header .logo {
     font-family: 'Muli', sans-serif;
     float:left;
-    color:#ff0000; /* красный цвет текста */
+    color:#ff0000;
     font-size:20px;
     margin-right:10%;
 }
@@ -101,13 +78,6 @@ ol {
     font-weight:bold;
 }
 /*-----------------------------------------------------------------------*/
-/*#header a {
-    color:red;
-}
-#header a:hover {
-    color:#fff;
-}*/
-
 
 #header a {
     color:#ff0000; /* красный цвет текста */
@@ -117,13 +87,6 @@ ol {
 }
 
 /*-----------------------------------------------------------------------*/
-
-
-
-/* ??????????????????????????????????????*/
-
-
-
 .menu li.selected a, #header ul.menu li.selected a:hover {
     color:#4B0082; /* индиго */
     font-weight:bold;
@@ -208,6 +171,7 @@ input[type=submit], a.button {
     float:left;
     font-size:13px;
 }
+
 /* messages */
 ul.messages {
     margin:10px 100px;
@@ -226,21 +190,6 @@ ul.messages li.info {
 }
 
 /*-----------------------------------------------------------------------*/
-
-/*ul.messages li.success { background:#81ce81; }
-ul.messages li.success a { color:#0ac33e; }
-
-ul.messages li.error { background:#a30029; color:#e9828e; }
-ul.messages li.error a { color:#e9828e; }
-
-ul.messages li.info { background:#faffae; color:#696b4e; }
-ul.messages li.info a { color:#1586de; }
-
-ul.messages li.warning { background:#de9404; }
-ul.messages li.warning a { color:#f49000; }*/
-
-
-
 ul.messages li.success { background:#81ce81; }
 ul.messages li.success a { color:#0ac33e; }
 
@@ -252,13 +201,6 @@ ul.messages li.info a { color:#ffffff; } /* белый цвет текста */
 
 ul.messages li.warning { background:#ff0000; } /* красный цвет фона */
 ul.messages li.warning a { color:#ffffff; } /* белый цвет текста */
-
-
-
-
-
-
-
 
 /*-----------------------------------------------------------------------*/
 
@@ -384,6 +326,28 @@ img.user-detail {
     height:150px;
     object-fit: cover;
 }
+
+.avatar_friend {
+    border-radius:50%;
+    width:100px;
+    height:100px;
+    object-fit: cover;
+}
+
+.btn_add_friend {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn_add_friend:hover {
+    background-color: #0056b3;
+}
+
 .avatar-header {
     border-radius: 50%;
     width: 2.5em; /* Размер для аватарки вверху справа */

@@ -17,6 +17,7 @@ class Friendship(models.Model):
         return f'{self.from_user.username} -> {self.to_user.username}'
 
 class Profile(models.Model):
+    objects = None
     user = models.OneToOneField(User,
                                 on_delete=models.CASCADE)
     date_of_birth = models.DateField(blank=True, null=True)
@@ -35,7 +36,7 @@ class Profile(models.Model):
 
     def get_friends(self):
         return User.objects.filter(
-            id__in=self.user.friendship_from.values_list('to_user',flat=True)
+            id__in=self.user.friendship_from.values_list('to_user_id',flat=True)
             )
     def remove_friend(self, friend):
         Friendship.objects.filter(
@@ -45,13 +46,3 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'Profile of {self.user.username}'
-
-    # def save(self, *args, **kwargs):
-    #     if not self.city:
-    #         ip = kwargs.pop('ip', None)
-    #         if ip:
-    #             city = self.get_city_from_ip(ip)
-    #             self.city = city
-    #     super().save(*args, **kwargs)
-
-
