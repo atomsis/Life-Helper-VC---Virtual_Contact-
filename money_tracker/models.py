@@ -4,6 +4,7 @@ from django.urls import reverse
 
 
 class Category(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
 
     class Meta:

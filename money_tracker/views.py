@@ -20,31 +20,31 @@ def expense_list(request):
 @login_required
 def add_expense(request):
     if request.method == 'POST':
-        form = ExpenseForm(request.POST)
+        form = ExpenseForm(request.POST,user=request.user)
         if form.is_valid():
             expense = form.save(commit=False)
             expense.user = request.user
             expense.save()
             return redirect('money_tracker:expense_list')
     else:
-        form = ExpenseForm()
+        form = ExpenseForm(user=request.user)
     return render(request, 'money_tracker/add_expense.html', {'form': form})
 
 
 @login_required
 def add_category(request):
     if request.method == 'POST':
-        form = CategoryForm(request.POST)
+        form = CategoryForm(request.POST,user=request.user)
         if form.is_valid():
             name = form.cleaned_data['name']
-            if Category.objects.filter(name=name).exists():
+            if Category.objects.filter(user=request.user, name=name).exists():
                 messages.error(request, 'Категория с этим названием уже существует.')
             else:
                 form.save()
                 messages.success(request, 'Категория успешно создана.')
                 return redirect('money_tracker:add_expense')
     else:
-        form = CategoryForm()
+        form = CategoryForm(user=request.user)
     return render(request, 'money_tracker/add_category.html', {'form': form})
 
 
@@ -52,7 +52,8 @@ def add_category(request):
 def expense_chart(request):
     expenses = Expense.objects.filter(user=request.user)
     # total_sum = sum([expense.amount for expense in expenses])
-    total_sum = Expense.objects.all().aggregate(Sum('amount'))['amount__sum']
+    # total_sum = Expense.objects.all().aggregate(Sum('amount'))['amount__sum']
+    total_sum = expenses.aggregate(Sum('amount'))['amount__sum']
 
     category_totals = expenses.values('category__name').annotate(total=Sum('amount'))
     labels = [category['category__name'] for category in category_totals]
