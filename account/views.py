@@ -179,7 +179,7 @@ def add_friend(request):
             friend_profile = Profile.objects.get(pk=friend_id)
             request.user.profile.add_friend(friend_profile)
             messages.success(request, 'You have new friends')
-            return HttpResponse(status=200)
+            return redirect('account:all_users')
         except Profile.DoesNotExist:
             messages.error(request, 'Invalid friend ID')
             return HttpResponseBadRequest('Invalid friend ID')
@@ -195,7 +195,7 @@ def remove_friend(request):
             friend_profile = Profile.objects.get(pk=friend_id)
             request.user.profile.remove_friend(friend_profile)
             messages.success(request, 'You have delete this friends from your friendlist')
-            return HttpResponse(status=200)
+            return redirect('account:all_users')
         except Profile.DoesNotExist:
             messages.error(request, 'Invalid friend ID')
             return HttpResponseBadRequest('Invalid friend ID')

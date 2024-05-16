@@ -26,23 +26,41 @@ class Profile(models.Model):
     city = models.CharField(max_length=255, blank=True)
     email = models.EmailField(blank=True)
 
-    def add_friend(self, friend):
-        friendship, created = Friendship.objects.get_or_create(
-            from_user=self.user,
-            to_user=friend.user
-        )
-        return friendship
+    # def add_friend(self, friend):
+    #     friendship, created = Friendship.objects.get_or_create(
+    #         from_user=self.user,
+    #         to_user=friend.user
+    #     )
+    #     return friendship
 
+
+    # def get_friends(self):
+    #     return User.objects.filter(
+    #         id__in=self.user.friendship_from.values_list('to_user_id',flat=True)
+    #         )
+
+    # def remove_friend(self, friend):
+    #     Friendship.objects.filter(
+    #         from_user=self.user,
+    #         to_user=friend.user
+    #     ).delete()
+
+    def add_friend(self, friend):
+        # Создаем дружбу между текущим пользователем и другом
+        Friendship.objects.create(from_user=self.user, to_user=friend.user)
+        # Создаем обратную дружбу между другом и текущим пользователем
+        Friendship.objects.create(from_user=friend.user, to_user=self.user)
+
+    def remove_friend(self, friend):
+        # Удаляем дружбу между текущим пользователем и другом
+        Friendship.objects.filter(from_user=self.user, to_user=friend.user).delete()
+        # Удаляем обратную дружбу между другом и текущим пользователем
+        Friendship.objects.filter(from_user=friend.user, to_user=self.user).delete()
 
     def get_friends(self):
-        return User.objects.filter(
-            id__in=self.user.friendship_from.values_list('to_user_id',flat=True)
-            )
-    def remove_friend(self, friend):
-        Friendship.objects.filter(
-            from_user=self.user,
-            to_user=friend.user
-        ).delete()
+        # Получаем всех друзей пользователя
+        friend_ids = Friendship.objects.filter(from_user=self.user).values_list('to_user', flat=True)
+        return User.objects.filter(id__in=friend_ids)
 
     def __str__(self):
         return f'Profile of {self.user.username}'
