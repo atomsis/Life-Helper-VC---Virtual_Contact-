@@ -6,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user','email','date_of_birth', 'city', 'get_photo_display']
+    list_display = ['id','user','email','date_of_birth', 'city', 'get_photo_display']
 
     def get_photo_display(self, obj):
         if obj.photo:

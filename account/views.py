@@ -9,7 +9,7 @@ from django.contrib import messages
 from .forms import UserRegistrationForm, \
     ProfileEditForm, UserPasswordChangeForm, UserEditForm
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile,Friendship
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -43,7 +43,6 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'account/register.html', {'form': form})
-
 
 
 @login_required
@@ -156,19 +155,36 @@ def my_ip(request):
 @login_required
 def all_users(request):
     users = User.objects.exclude(pk=request.user.pk)
-    friend_status = {}
 
-    for user in users:
-        is_friend = user.profile in request.user.profile.get_friends()
-        friend_status[user.id] = is_friend
+    friends = set(request.user.profile.get_friends())
+    friend_status = {user.id: (user in friends) for user in users}
 
-    return render(request, 'friends/all_users.html', {'users': users,'friend_status': friend_status})
+    # friend_status = {}
+
+    # for user in users:
+    #     is_friend = user in request.user.profile.get_friends()
+    #     friend_status[user.id] = is_friend
+
+    # for user in users:
+    #     is_friend = Friendship.objects.filter(
+    #         from_user=request.user, to_user=user
+    #     ).exists() or Friendship.objects.filter(
+    #         from_user=user, to_user=request.user
+    #     ).exists()
+    #     friend_status[user.id] = is_friend
+    #
+    # for k,v in friend_status.items():
+    #     print(f'{k}=>{v}')
+
+    return render(request, 'friends/all_users.html', {'users': users, 'friend_status': friend_status})
+
 
 @login_required
 def my_friends(request):
     user = request.user
     friends = user.profile.get_friends()
     return render(request, 'friends/friend_list.html', {'friends': friends})
+
 
 @login_required
 def add_friend(request):
@@ -178,14 +194,15 @@ def add_friend(request):
         try:
             friend_profile = Profile.objects.get(pk=friend_id)
             request.user.profile.add_friend(friend_profile)
-            messages.success(request, 'You have new friends')
+            messages.success(request, 'Вы добавили нового друга')
             return redirect('account:all_users')
         except Profile.DoesNotExist:
-            messages.error(request, 'Invalid friend ID')
-            return HttpResponseBadRequest('Invalid friend ID')
+            messages.error(request, 'Неверный ID друга')
+            return HttpResponseBadRequest('Неверный ID друга')
     else:
-        messages.error(request, 'Invalid request method')
-        return HttpResponseBadRequest('Invalid request method')
+        messages.error(request, 'Неверный метод запроса')
+        return HttpResponseBadRequest('Неверный метод запроса')
+
 
 @login_required
 def remove_friend(request):
@@ -194,11 +211,11 @@ def remove_friend(request):
         try:
             friend_profile = Profile.objects.get(pk=friend_id)
             request.user.profile.remove_friend(friend_profile)
-            messages.success(request, 'You have delete this friends from your friendlist')
+            messages.success(request, 'Вы удалили друга из списка')
             return redirect('account:all_users')
         except Profile.DoesNotExist:
-            messages.error(request, 'Invalid friend ID')
-            return HttpResponseBadRequest('Invalid friend ID')
+            messages.error(request, 'Неверный ID друга')
+            return HttpResponseBadRequest('Неверный ID друга')
     else:
-        messages.error(request, 'Invalid request method')
-        return HttpResponseBadRequest('Invalid request method')
+        messages.error(request, 'Неверный метод запроса')
+        return HttpResponseBadRequest('Неверный метод запроса')

@@ -21,14 +21,11 @@
         {% for friend in friends %}
             <div class="user">
                 {% include 'photo_or_anon.html' with user=friend %}
-                <p class="username">
-                    {% if friend.user.username %}
-                        {{ friend.user.username }}
-                {% else %}
-                        {{ friend }}
-                {% endif %}
-                </p>
+            <p class="username">
+                {{ friend.username }}
+            </p>
             </div>
+
         {% endfor %}
     </div>
 {% endblock %}
