@@ -208,11 +208,12 @@ def add_friend(request):
 def remove_friend(request):
     if request.method == 'POST':
         friend_id = request.POST.get('friend_id')
+        next_url = request.POST.get('next')
         try:
             friend_profile = Profile.objects.get(pk=friend_id)
             request.user.profile.remove_friend(friend_profile)
             messages.success(request, 'Вы удалили друга из списка')
-            return redirect('account:all_users')
+            return redirect(next_url if next_url else 'account:all_users')
         except Profile.DoesNotExist:
             messages.error(request, 'Неверный ID друга')
             return HttpResponseBadRequest('Неверный ID друга')

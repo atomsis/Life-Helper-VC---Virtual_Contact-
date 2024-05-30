@@ -19,6 +19,8 @@
                         <form action="{% url 'account:add_friend' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="friend_id" value="{{ user.profile.id }}">
+                            <input type="hidden" name="next" value="{% url 'account:all_users' %}">
+
                             <button type="submit" class="btn_add_friend">Добавить в друзья?</button>
                         </form>
                     {% else %}
