@@ -15,7 +15,8 @@ urlpatterns = [
 ###-----------------------------------------------------------------------------------------------------
     path('', include('account.urls')),
     path('weather/',include('weather_api.urls')),
-    path('money_tracker/',include('money_tracker.urls',namespace='money_tracker'))
+    path('money_tracker/',include('money_tracker.urls',namespace='money_tracker')),
+    path('chat/', include('chat.urls', namespace='chat')),
 ]
 
 if settings.DEBUG:

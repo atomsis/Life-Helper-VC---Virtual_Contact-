@@ -24,12 +24,15 @@
             <p class="username">
                 {{ friend.username }}
             </p>
-             <form action="{% url 'account:remove_friend' %}" method="post">
+            <div>
+
+            </div>
+            <form action="{% url 'account:remove_friend' %}" method="post">
                  {% csrf_token %}
                  <input type="hidden" name="friend_id" value="{{ friend.profile.id }}">
                  <input type="hidden" name="next" value="{% url 'account:my_friends' %}">
                  <button type="submit" class="btn_remove_friend">Удалить из друзей</button>
-             </form>
+            </form>
             </div>
 
         {% endfor %}
