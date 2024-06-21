@@ -21,6 +21,7 @@
         {% for friend in friends %}
             <div class="user">
                 {% include 'photo_or_anon.html' with user=friend %}
+            <a href="{% url 'chat' friend.username %}">Написать сообщение</a>
             <p class="username">
                 {{ friend.username }}
             </p>
