@@ -25,7 +25,7 @@
                 {{ friend.username }}
             </p>
             <div>
-
+                <a href="{% url 'chat:chat' friend.id %}">Отправить сообщение</a>
             </div>
             <form action="{% url 'account:remove_friend' %}" method="post">
                  {% csrf_token %}

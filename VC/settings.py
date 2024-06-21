@@ -15,6 +15,8 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1','0.0.0.0']
 
 
 INSTALLED_APPS = [
+    'chat.apps.ChatConfig',
+    'channels',
     'account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -24,8 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'weather_api.apps.WeatherApiConfig',
     'money_tracker.apps.MoneyTrackerConfig',
-    'chat.apps.ChatConfig',
-    'channels',
+
 ]
 
 MIDDLEWARE = [
@@ -60,8 +61,11 @@ WSGI_APPLICATION = 'VC.wsgi.application'
 ASGI_APPLICATION = 'VC.asgi.application'
 
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
     },
 }
 
@@ -106,7 +110,10 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-# STATIC_URLTICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
