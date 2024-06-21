@@ -7,7 +7,7 @@ from .models import Profile
 
 #------------------------------- Города -----------------------------
 class BaseCityForm(forms.ModelForm):
-    city = forms.ChoiceField(label='Город',choices=[], widget=forms.Select(attrs={'class': 'form-input'}))
+    city = forms.ChoiceField(choices=[], widget=forms.Select(attrs={'class': 'form-input'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
