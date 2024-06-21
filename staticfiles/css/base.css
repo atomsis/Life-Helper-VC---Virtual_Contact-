@@ -1,0 +1,484 @@
+@import url(//fonts.googleapis.com/css?family=Muli);
+
+/*-----------------------------------------------------------------------*/
+body {
+    margin:0;
+    padding:0;
+    font-family:helvetica, sans-serif;
+    background: white; /* черный цвет фона */
+    color: black; /* белый цвет текста */
+}
+/*-----------------------------------------------------------------------*/
+
+p {
+    line-height: 1.8;
+}
+
+a {
+    color:#12c064;
+    text-decoration:none;
+}
+
+a:hover {
+    color:#00a74f;
+}
+
+h1, h2, h3, h4, h5 , h6 { font-family: 'Muli', sans-serif; font-weight:normal; }
+
+h1 {
+    border-bottom:1px solid #bbb;
+    padding:0 0 10px 0;
+    margin:10px 0 20px 0;
+}
+
+h2 {
+    margin:30px 0 20px;
+}
+
+ol {
+    line-height:1.5;
+}
+
+
+/*-----------------------------------------------------------------------*/
+
+#header {
+    padding:10px 100px;
+    font-size:14px;
+    background:#000000;
+    color:#ff0000;
+    border-bottom:4px solid #ff0000;
+    overflow:auto;
+}
+
+/*-----------------------------------------------------------------------*/
+
+
+#header .logo {
+    font-family: 'Muli', sans-serif;
+    float:left;
+    color:#ff0000;
+    font-size:20px;
+    margin-right:10%;
+}
+/*-----------------------------------------------------------------------*/
+#header ul.menu {
+    list-style:none;
+    float:left;
+    margin:0;
+    padding:0;
+}
+#header ul.menu li {
+    float:left;
+    padding:4px 10px;
+}
+
+#header ul.menu li.selected a, #header ul.menu li.selected a:hover {
+    color:#4B0082;
+    font-weight:bold;
+}
+/*-----------------------------------------------------------------------*/
+
+#header a {
+    color:#ff0000; /* красный цвет текста */
+}
+#header a:hover {
+    color:#ffffff; /* белый цвет текста */
+}
+
+/*-----------------------------------------------------------------------*/
+.menu li.selected a, #header ul.menu li.selected a:hover {
+    color:#4B0082; /* индиго */
+    font-weight:bold;
+}
+
+.menu li a {
+    color:#ff0000; /* красный цвет текста */
+}
+
+.menu li a:hover {
+    color:#ffffff; /* белый цвет текста */
+}
+
+.menu {
+    color:#ff0000; /* красный цвет текста */
+}
+
+.menu li.selected a, .menu li.selected a:hover {
+    color:#4B0082; /* индиго */
+    font-weight:bold;
+}
+
+
+
+
+
+
+
+/*-----------------------------------------------------------------------*/
+#header .user {
+    float:right;
+    padding-top:4px;
+}
+
+#content {
+    padding:30px 100px;
+}
+
+/* forms */
+form {
+    overflow:auto;
+}
+
+form p {
+    width:100%;
+    overflow:auto;
+}
+
+label {
+    float:left;
+    clear:both;
+    color:#333;
+    margin-bottom:4px;
+}
+input, textarea {
+    clear:both;
+    float:left;
+    margin:0 0 10px;
+    background:#efefef;
+    border:0;
+    padding:6px 10px;
+    font-size:14px;
+}
+input[type=submit], a.button {
+    font-weight:bold;
+    background:#12c064;
+    color:#fff;
+    padding:10px 20px;
+    font-size:14px;
+    text-transform:uppercase;
+}
+.errorlist {
+    color:#cc0033;
+    float:left;
+    clear:both;
+    padding-left:10px;
+}
+.helptext {
+    margin:0 0 20px 0;
+    color:#aaa;
+    clear:both;
+    float:left;
+    font-size:13px;
+}
+
+/* messages */
+ul.messages {
+    margin:10px 100px;
+    padding:0;
+    list-style-type:
+    none;
+}
+ul.messages li.success,
+ul.messages li.warning,
+ul.messages li.error,
+ul.messages li.info {
+    margin:0;
+    padding:14px 20px;
+    list-style:none;
+    color:#fff;
+}
+
+/*-----------------------------------------------------------------------*/
+ul.messages li.success { background:#81ce81; }
+ul.messages li.success a { color:#0ac33e; }
+
+ul.messages li.error { background:#ff0000; color:#ffffff; } /* красный цвет фона и белый цвет текста */
+ul.messages li.error a { color:#ffffff; } /* белый цвет текста */
+
+ul.messages li.info { background:#000000; color:#696b4e; } /* черный фон и цвет текста серый */
+ul.messages li.info a { color:#ffffff; } /* белый цвет текста */
+
+ul.messages li.warning { background:#ff0000; } /* красный цвет фона */
+ul.messages li.warning a { color:#ffffff; } /* белый цвет текста */
+
+/*-----------------------------------------------------------------------*/
+
+ul.messages li a.close {
+    margin:0;
+    float:right;
+    opacity:1;
+    border:0;
+    box-shadow:none;
+    text-shadow:none;
+}
+
+.login-form {
+    float:left;
+}
+
+/* social-auth */
+.social {
+    float:right;
+}
+.social li {
+    list-style:none;
+    padding:10px 20px;
+    margin:0 0 10px 0;
+}
+.social li a {
+    width:100%;
+    height:100%;
+    display:block;
+    color:#fff;
+}
+.social li.facebook { background:#3b5399; }
+.social li.twitter { background:#00cffa; }
+.social li.google { background:#de1710; }
+
+
+
+.image-preview, .image-detail {
+    max-width:300px;
+    float:left;
+    margin:0 20px 20px 0;
+}
+.image-detail { margin-top:20px; }
+.image-info div {
+    padding:20px 0;
+    overflow:auto;
+}
+.count {
+    color:#aaa;
+    border:3px solid #bbb;
+    border-radius:26px;
+    padding:10px 20px;
+    margin:20px 10px 0;
+}
+a.like, a.follow { float:right; margin-top:-8px; }
+
+#image-list { overflow:hidden; }
+#image-list .image {
+    float:left;
+    width:220px;
+    height:300px;
+    margin:0 10px 10px 10px;
+    border-top:8px solid #12c064;
+    background:#eee;
+}
+#image-list img { width:220px; height:220px; }
+#image-list .info { padding:10px; }
+#image-list .info a { color:#333; }
+.image-likes div {
+    float:left;
+    width:auto;
+    padding:10px;
+    text-align:center;
+}
+.image-likes img {
+    width:120px;
+    height:120px;
+    border-radius:50%;
+}
+
+/* users */
+#people-list img {
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    margin-bottom:20px;
+}
+#people-list .user {
+    width:180px;
+    float:left;
+    overflow:auto;
+    padding:10px;
+}
+#people-list .info { text-align:center; }
+img.user-detail {
+    border-radius:50%;
+    float:left;
+}
+.profile-info {
+    float:left;
+    overflow:auto;
+    margin-right:20px;
+}
+.image-container { margin-top:40px; }
+
+/* actions */
+.action {
+    clear:both;
+    overflow:auto;
+}
+.action .images {
+    float:left;
+    margin:0 10px 10px 0;
+}
+.action .date {
+    font-style:italic;
+    color:#ccc;
+}
+
+.avatar {
+    border-radius:50%;
+    width:150px;
+    height:150px;
+    object-fit: cover;
+}
+
+.avatar_friend {
+    border-radius:50%;
+    width:100px;
+    height:100px;
+    object-fit: cover;
+}
+
+.btn_add_friend {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn_add_friend:hover {
+    background-color: #0056b3;
+}
+
+.btn_remove_friend {
+    background-color: red;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn_remove_friend:hover {
+    background-color: #0056b3;
+}
+
+.avatar-header {
+    border-radius: 50%;
+    width: 2.5em; /* Размер для аватарки вверху справа */
+    height: 2.5em;
+    object-fit: cover;
+}
+.change-photo-button {
+        margin-top: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+.change-photo-button:hover {
+        background-color: #0056b3;
+    }
+
+#id_photo {
+    display: none;
+}
+
+.photo-changed-message {
+        color: green;
+        font-weight: bold;
+    }
+
+
+.weather-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.current-weather, .forecast {
+    margin-bottom: 30px;
+}
+
+.day {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.temperature, .condition, .wind, .pressure, .uv-index {
+    font-size: 18px;
+}
+
+.time {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.max-temp, .min-temp, .morning-temp, .day-temp, .evening-temp, .chance-of-rain, .condition {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.astro-data {
+    margin-top: 10px;
+
+    border : solid blue 3px;
+    border-radius : 20px;
+}
+
+.astro-data ul {
+    margin-left: 10px;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.astro-data ul li {
+    font-size: 14px;
+    margin-bottom:
+
+
+/*-----------------------------------------------------------------------*/
+
+.login-form, .avatar, .weather-container {
+    background: #000000; /* черный цвет фона */
+    color: #ffffff; /* белый цвет текста */
+}
+
+.image-preview, .image-detail {
+    background: #000000; /* черный цвет фона */
+    color: #ffffff; /* белый цвет текста */
+}
+/*-----------------------------------------------------------------------*/
+.avatar-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-menu {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: 1000;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.profile-menu li {
+    list-style: none;
+}
+
+.profile-menu li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 5px 0;
+}
+
+.profile-menu li a:hover {
+    background-color: #f0f0f0;
+}
+
