@@ -15,6 +15,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1','0.0.0.0']
 
 
 INSTALLED_APPS = [
+    'daphne',
     'account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -59,13 +60,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'VC.wsgi.application'
 ASGI_APPLICATION = 'VC.asgi.application'
 
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels.layers.InMemoryChannelLayer",
+#     },
+# }
+
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
     },
 }
-
-
 
 DATABASES = {
     'default': {

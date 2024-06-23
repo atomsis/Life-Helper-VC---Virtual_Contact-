@@ -4,7 +4,6 @@ services:
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
-
     restart: always
     ports:
       - "8000:8000"
@@ -12,3 +11,9 @@ services:
       - .:/app
     environment:
       - ALLOWED_HOSTS=0.0.0.0,localhost,127.0.0.1
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+
