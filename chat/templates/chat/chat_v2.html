@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Chat with {{ friend.username }}</h1>
+<div id="chat-log">
+    {% for message in messages %}
+    <p><strong>{{ message.sender.username }}:</strong> {{ message.message }}</p>
+    {% endfor %}
+</div>
+<input type="text" id="chat-message-input" placeholder="Type your message..." autocomplete="off"/>
+<button id="chat-message-submit">Send</button>
+
+<script>
+    const roomName = "{{ friend.id }}";
+    const socket = new WebSocket(`ws://${window.location.host}/ws/chat/${roomName}/`);
+
+    // Обработчик открытия соединения
+    socket.addEventListener('open', (event) => {
+        console.log('WebSocket connection opened:', event);
+    });
+
+    // Обработчик получения сообщения
+    socket.addEventListener('message', (event) => {
+        const data = JSON.parse(event.data);
+        const chatLog = document.getElementById('chat-log');
+        const message = `<p><strong>${data.sender}:</strong> ${data.message}</p>`;
+        chatLog.innerHTML += message;
+    });
+
+    // Обработчик закрытия соединения
+    socket.addEventListener('close', (event) => {
+        console.error('WebSocket connection closed:', event);
+    });
+
+    // Функция для отправки сообщения
+    function sendMessage() {
+        const inputElement = document.getElementById('chat-message-input');
+        const message = inputElement.value;
+        if (message.trim() !== '') {
+            socket.send(JSON.stringify({ 'message': message, 'sender': '{{ request.user.username }}' }));
+            inputElement.value = '';
+        }
+    }
+
+    document.getElementById('chat-message-submit').onclick = function() {
+        sendMessage();
+    };
+
+    document.getElementById('chat-message-input').onkeyup = function(e) {
+        if (e.keyCode === 13) {
+            sendMessage();
+        }
+    };
+</script>
+{% endblock %}

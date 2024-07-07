@@ -190,7 +190,6 @@ def my_friends(request):
 def add_friend(request):
     if request.method == 'POST':
         friend_id = request.POST.get('friend_id')
-        # print(friend_id)
         try:
             friend_profile = Profile.objects.get(pk=friend_id)
             request.user.profile.add_friend(friend_profile)

@@ -22,20 +22,21 @@
             <div class="user">
                 {% include 'photo_or_anon.html' with user=friend %}
             <a href="{% url 'chat:chat' friend.id %}">Написать сообщение</a>
+            <a href="{% url 'finance:send_money' friend.id %}">Отправить деньги</a>
             <p class="username">
                 {{ friend.username }}
             </p>
-            <div>
 
-            </div>
             <form action="{% url 'account:remove_friend' %}" method="post">
                  {% csrf_token %}
                  <input type="hidden" name="friend_id" value="{{ friend.profile.id }}">
                  <input type="hidden" name="next" value="{% url 'account:my_friends' %}">
                  <button type="submit" class="btn_remove_friend">Удалить из друзей</button>
             </form>
-            </div>
 
+
+
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

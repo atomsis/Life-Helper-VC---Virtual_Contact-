@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'weather_api.apps.WeatherApiConfig',
     'money_tracker.apps.MoneyTrackerConfig',
+    'finance.apps.FinanceConfig',
     'chat.apps.ChatConfig',
     'channels',
 ]
