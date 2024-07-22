@@ -26,27 +26,6 @@ class ExpenseForm(forms.ModelForm):
         widgets = {
             'date': DatePickerWidget(),
         }
-        # ------------ v1 -----------------
-        # widget = forms.SelectDateWidget(
-        #     attrs={'class': 'form-control'}
-        # )
-        # --------------------------------
-        # ------------ v2 ----------------
-        # widget = forms.DateInput(
-        #     attrs={'type': 'date'}
-        # )
-        # -------------------------------
-        # ----------- v3 ----------------
-        # widgets = {
-        #     'date': DatePickerWidget(),
-        # }
-        # -------------------------------
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     instance = kwargs.get('instance')
-    #     if instance:
-    #         self.initial['date'] = instance.date.strftime('%Y-%m-%d')
 
 
 class CategoryForm(forms.ModelForm):
