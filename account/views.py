@@ -77,29 +77,6 @@ def edit(request):
                    'section': 'profile'})
 
 
-### ---------------------- LOGIN v1 ----------------------------------------
-# class LoginUser(LoginView):
-#     form_class = LoginForm
-#     template_name = 'account/login.html'
-#     extra_context = {'title': 'Авторизация'}
-### -------------------------------------------------------------------------
-
-### ------------------- LOGIN v2 --------------------------------------------
-# def user_login(request):
-#     if request.method == 'POST':
-#         form = UserLoginForm(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             user = authenticate(username=username, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('account:profile')  # Redirect to profile page after successful login
-#     else:
-#         form = UserLoginForm()
-#     return render(request, 'account/login.html', {'form': form})
-### ---------------------------------------------------------------------
-
 ### ------------------- LOGIN v3 --------------------------------------------
 def login_view(request):
     if request.user.is_authenticated:
@@ -113,7 +90,6 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'account/login.html', {'form': form})
-
 
 ### ---------------------------------------------------------------------
 
