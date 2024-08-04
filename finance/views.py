@@ -41,6 +41,10 @@ def deposit(request):
         form = DepositForm(request.POST)
         if form.is_valid():
             amount = form.cleaned_data['amount']
+
+            # Сохранение суммы как строку в сессию
+            request.session['deposit_amount'] = str(amount)
+
             session = stripe.checkout.Session.create(
                 payment_method_types=['card'],
                 line_items=[{
@@ -95,3 +99,12 @@ def success(request):
             'friend_name': friend_name,
             'amount': amount
         })
+
+
+@login_required
+def cancel(request):
+    # Получаем сумму из сессии и преобразуем обратно в Decimal
+    amount_str = request.session.pop('deposit_amount', '0')
+    amount = Decimal(amount_str)
+
+    return render(request, 'finance/cancel.html', {'amount': amount})
