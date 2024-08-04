@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <h1>Transaction Successful</h1>
+    <p>You have successfully sent {{ amount }} USD to {{ friend_name }}.</p>
+    <a href="{% url 'account:dashboard' %}">Return to Home</a>
+</body>
+</html>

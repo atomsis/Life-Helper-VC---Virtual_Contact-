@@ -53,6 +53,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'finance.context_processors.user_balance',
             ],
         },
     },
@@ -138,3 +139,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
 ]
+
+STRIPE_PUBLIC_KEY = 'pk_test_51O8PEsKw3PoIIPNlH1yeoBkG2XZb9aLgR5jEinY1hCOna4lKUJtO5u5q1lsM4eZOBwDluV49YI0waeKFRVTOh9n100ZvHG7kK6'
+STRIPE_SECRET_KEY = 'sk_test_51O8PEsKw3PoIIPNlDX7V8r5dCSAOD9bo4oGCPTtn4XlbH3jiWRRzl99xnEURBPYIH71o3PRwiW0qv6GGTdeJdaGK00LSSoPa1W'
+STRIPE_API_VERSION = '2024-06-20'

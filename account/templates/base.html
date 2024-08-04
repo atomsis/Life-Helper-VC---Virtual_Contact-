@@ -49,6 +49,9 @@
                 <!-- Другие пункты меню -->
             </ul>
         </div>
+        <div>
+            <a href="{% url 'finance:deposit' %}"> Balance: {{ user_balance  }} $ </a>
+        </div>
     {% else %}
         <a href="{% url 'account:login' %}">Log-in</a>
     {% endif %}

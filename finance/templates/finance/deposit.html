@@ -1,9 +1,16 @@
-{% extends 'base.html' %}
-{% block content %}
-<h2>Пополнить счет</h2>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deposit</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+<h2>Deposit Funds</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Пополнить</button>
+    <button type="submit">Deposit</button>
 </form>
-{% endblock %}
+</body>
+</html>
